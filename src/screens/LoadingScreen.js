@@ -1,17 +1,24 @@
-import React from 'react';
-import {ActivityIndicator, StyleSheet, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {ActivityIndicator, StyleSheet, View, Text } from 'react-native';
 
 
 
+const LoadingScreen = ({navigation}) => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigation.replace('AnalysisResult');
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [navigation]);
 
-const App = () => (
-  <View style={[styles.container, styles.horizontal]}>
-    <ActivityIndicator />
-    <ActivityIndicator size="large" />
-    <ActivityIndicator size="small" color="#0000ff" />
-    <ActivityIndicator size="large" color="#00ff00" />
-  </View>
-);
+  return(
+    <View style={[styles.container, styles.horizontal]}>
+      <ActivityIndicator size="large" />
+      <Text>운동 결과를 분석중입니다.</Text>
+    </View>
+  )
+}
+
 
 const styles = StyleSheet.create({
   container: {
@@ -25,4 +32,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default LoadingScreen;

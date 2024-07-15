@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import type { Node } from 'react';
 import {
   SafeAreaView,
   StatusBar,
@@ -12,6 +11,11 @@ import {
 } from 'react-native';
 
 import AnalysisScreen from './src/screens/AnalysisScreen';
+import LoadingScreen from './src/screens/LoadingScreen';
+import AnalysisResult from './src/screens/AnalysisResult';
+import SelectScreen from './src/screens/AnalysisSelectScreen';
+import SelectOnDevice from './src/screens/SelectOnDevice';
+import SelectOnServer from './src/screens/SelectOnServer';
 
 const Stack = createNativeStackNavigator();
 
@@ -40,7 +44,7 @@ const HomeScreen = ({ navigation }) => {
         <View style={styles.buttonStyle}>
           <Text
             style={styles.buttonTextStyle}
-            onPress={() => navigation.navigate('Analysis')}
+            onPress={() => navigation.navigate('Select')}
           >
             분석하러가기
           </Text>
@@ -50,12 +54,17 @@ const HomeScreen = ({ navigation }) => {
   );
 };
 
-const App: () => Node = () => {
+const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Analysis" component={AnalysisScreen} />
+        <Stack.Screen name="Loading" component={LoadingScreen} />
+        <Stack.Screen name="AnalysisResult" component={AnalysisResult} />
+        <Stack.Screen name="Select" component={SelectScreen} />
+        <Stack.Screen name="Device" component={SelectOnDevice} />
+        <Stack.Screen name="Server" component={SelectOnServer} />
       </Stack.Navigator>
     </NavigationContainer>
   );
