@@ -50,6 +50,13 @@ const HomeScreen = ({ navigation }) => {
     <SafeAreaView style={backgroundStyle}>
       {/* <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} /> */}
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <TouchableOpacity
+          onPress={()=>{
+            navigation.navigate('Login');}}
+        >
+          <Text>로그인하기</Text>
+        </TouchableOpacity>
+        
         <HiUser />
         <View style={styles.container}>
           <TouchableOpacity

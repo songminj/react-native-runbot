@@ -14,6 +14,13 @@ const AnalysisResult = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>분석 결과</Text>
+      <Text>사용자님의 자세는 100점 입니다!</Text>
+      <View style={styles.reviewContainer}>
+        <Text>자세 리뷰</Text>
+        <Text>상체 자세는 </Text>
+        <Text>하체 자세는 </Text>
+        <Text>접지 자세는 </Text>
+      </View>
       <TouchableOpacity
         style={styles.buttonStyle}
         onPress={() => navigation.navigate('Home')}
@@ -50,6 +57,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
+  reviewContainer: {
+    margin:10,
+    fontSize: 20,
+  }
 });
 
 export default AnalysisResult;

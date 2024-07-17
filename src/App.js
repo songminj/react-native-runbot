@@ -8,6 +8,9 @@ import AnalysisResult from './analysis/AnalysisResult';
 import AnalysisSelectScreen from './analysis/AnalysisSelectScreen';
 import SelectOnDevice from './screens/SelectOnDevice';
 import SelectOnServer from './screens/SelectOnServer';
+import LoginScreen from './login/LoginScreen';
+
+
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +24,7 @@ const App = () => {
         <Stack.Screen name="Select" component={AnalysisSelectScreen} />
         <Stack.Screen name="Device" component={SelectOnDevice} />
         <Stack.Screen name="Server" component={SelectOnServer} />
+        <Stack.Screen name="Login" component={LoginScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
