@@ -1,16 +1,17 @@
 import React from "react";
-import {View, Text, StyleSheet} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {
+  View, 
+  Text, 
+  StyleSheet,
+  Button} 
+from 'react-native';
 
-
-
-const AnalysisResult = () => {
+const AnalysisResult = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Text>분석 결과</Text>
       <Button
-        title="Go Back"
+        title="처음으로"
         onPress={() => navigation.navigate('Home')}
       />
     </View>

@@ -1,10 +1,19 @@
 import React from "react";
-import { View, Text, StyleSheet } from 'react-native';
+import { 
+  View, 
+  Text, 
+  StyleSheet,
+  Button
+ } from 'react-native';
 
-const SelectOnServer = () => {
+const SelectOnServer = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text>로봇카로 촬영한 영상 찾아보기</Text>
+      <Button
+        title="분석하러 가기"
+        onPress={() => navigation.navigate('Loading')}
+      />
     </View>
   );
 };
