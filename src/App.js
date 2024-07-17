@@ -2,13 +2,13 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import HomeScreen from './src/screens/HomeScreen';
-import AnalysisScreen from './src/screens/AnalysisScreen';
-import LoadingScreen from './src/screens/LoadingScreen';
-import AnalysisResult from './src/screens/AnalysisResult';
-import SelectScreen from './src/screens/AnalysisSelectScreen';
-import SelectOnDevice from './src/screens/SelectOnDevice';
-import SelectOnServer from './src/screens/SelectOnServer';
+import HomeScreen from './screens/HomeScreen';
+import AnalysisScreen from './analysis/AnalysisScreen';
+import LoadingScreen from './screens/LoadingScreen';
+import AnalysisResult from './screens/AnalysisResult';
+import SelectScreen from './analysis/AnalysisSelectScreen';
+import SelectOnDevice from './screens/SelectOnDevice';
+import SelectOnServer from './screens/SelectOnServer';
 
 const Stack = createNativeStackNavigator();
 
