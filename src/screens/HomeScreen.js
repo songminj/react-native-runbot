@@ -1,4 +1,5 @@
 import React from "react";
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {
   SafeAreaView,
   StatusBar,
@@ -56,7 +57,9 @@ const HomeScreen = ({ navigation }) => {
         >
           <Text>로그인하기</Text>
         </TouchableOpacity>
-        
+        <View>
+          <Icon name="home" size ={24} color ="#000000"/>
+        </View>
         <HiUser />
         <View style={styles.container}>
           <TouchableOpacity
