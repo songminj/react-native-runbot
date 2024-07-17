@@ -1,8 +1,6 @@
 import React, {useEffect} from 'react';
 import {ActivityIndicator, StyleSheet, View, Text } from 'react-native';
 
-
-
 const LoadingScreen = ({navigation}) => {
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -12,23 +10,30 @@ const LoadingScreen = ({navigation}) => {
   }, [navigation]);
 
   return(
-    <View style={[styles.container, styles.horizontal]}>
-      <ActivityIndicator size="large" />
-      <Text>운동 결과를 분석중입니다.</Text>
+    <View style={styles.container}>
+      <ActivityIndicator size="large" style={styles.loadingIndicator} />
+      <Text style={styles.loadingText}>운동 결과를 분석중입니다.</Text>
     </View>
   )
 }
-
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f2f2f2',
   },
-  horizontal: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    padding: 10,
+  loadingIndicator: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingText: {
+    position: 'absolute',
+    bottom: 50, // 중앙 하단부에 텍스트를 위치시키기 위해 설정합니다.
+    fontSize: 16,
+    textAlign: 'center',
   },
 });
 

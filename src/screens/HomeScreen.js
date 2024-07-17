@@ -48,7 +48,7 @@ const HomeScreen = ({ navigation }) => {
   };
   return (
     <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      {/* <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} /> */}
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <HiUser />
         <View style={styles.container}>
@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     padding: 10,
     borderRadius: 5,
+    alignItems: 'center',
   },
   hiUserText: {
     fontSize: 18,
@@ -91,12 +92,12 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     marginBottom: 10,
+    alignItems: 'center', // Center align the text inside the button
   },
   buttonTextStyle: {
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
-    alignItems: 'center',
   },
   container: {
     justifyContent: 'center',

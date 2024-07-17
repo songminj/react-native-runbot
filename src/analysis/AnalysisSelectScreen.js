@@ -7,8 +7,8 @@ import {
   Dimensions,
 } from 'react-native';
 
-
 const width = Dimensions.get('window').width;
+
 const SelectScreen = ({ navigation }) => {
   return (
     <View>
@@ -20,20 +20,22 @@ const SelectScreen = ({ navigation }) => {
           여러분의 달리기 자세를 분석하여 자세교정이 필요한 부분을 알려드립니다.
         </Text>
       </View>
-      <TouchableOpacity
-        style={styles.buttonStyle}
-        onPress={() => {
-          navigation.navigate('Device');}}
-      >
-        <Text style={styles.buttonTextStyle}>갤러리에서 영상 가져오기</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.buttonStyle}
-        onPress={() => {
-          navigation.navigate('Server');}}
-      >
-        <Text style={styles.buttonTextStyle}>로봇카로 촬영한 영상 찾아보기</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.buttonStyle}
+          onPress={() => {
+            navigation.navigate('Device');}}
+        >
+          <Text style={styles.buttonTextStyle}>갤러리에서 영상 가져오기</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonStyle}
+          onPress={() => {
+            navigation.navigate('Server');}}
+        >
+          <Text style={styles.buttonTextStyle}>로봇카로 촬영한 영상 찾아보기</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -58,8 +60,8 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     margin: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
+    alignItems: 'center', // Center align buttons horizontally
   },
   buttonStyle: {
     backgroundColor: '#000000',
@@ -67,12 +69,13 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     marginBottom: 10,
+    alignItems: 'center', // Center align text horizontally
   },
   buttonTextStyle: {
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
-    alignItems: 'center',
+    textAlign: 'center', // Center align text horizontally
   },
 });
 

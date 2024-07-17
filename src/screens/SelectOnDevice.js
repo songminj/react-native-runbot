@@ -45,8 +45,10 @@ const SelectOnDevice = () => {
 
   return (
     <View style={styles.container}>
-      <Text>갤러리에서 영상 가져오기</Text>
-      <Button title="Pick Video" onPress={pickVideo} />
+      <Text style={styles.title}>갤러리에서 영상 가져오기</Text>
+      <Pressable style={styles.pickButton} onPress={pickVideo}>
+        <Text style={styles.buttonText}>Pick Video</Text>
+      </Pressable>
       <Modal
         animationType="slide"
         transparent={true}
@@ -60,14 +62,14 @@ const SelectOnDevice = () => {
             <Text style={styles.modalText}>이 비디오를 선택하겠습니까?</Text>
             <View style={styles.buttonContainer}>
               <Pressable
-                style={[styles.button, styles.buttonClose]}
+                style={[styles.button, styles.confirmButton]}
                 onPress={sendVideoToServer}>
-                <Text style={styles.textStyle}>예</Text>
+                <Text style={styles.buttonText}>예</Text>
               </Pressable>
               <Pressable
-                style={[styles.button, styles.buttonClose]}
+                style={[styles.button, styles.cancelButton]}
                 onPress={() => setModalVisible(!modalVisible)}>
-                <Text style={styles.textStyle}>아니오</Text>
+                <Text style={styles.buttonText}>아니오</Text>
               </Pressable>
             </View>
           </View>
@@ -83,6 +85,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f2f2f2',
+  },
+  title: {
+    fontSize: 18,
+    marginBottom: 20,
+  },
+  pickButton: {
+    backgroundColor: '#000000',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 10,
+    alignItems: 'center',
+    width: '80%',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   centeredView: {
     flex: 1,
@@ -112,22 +132,23 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   button: {
-    borderRadius: 20,
+    borderRadius: 5,
     padding: 10,
     elevation: 2,
+    flex: 1,
+    marginHorizontal: 5,
+    alignItems: 'center',
   },
-  buttonClose: {
-    backgroundColor: '#2196F3',
-    marginHorizontal: 10,
+  confirmButton: {
+    backgroundColor: '#000000',
   },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
+  cancelButton: {
+    backgroundColor: '#000000',
   },
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
+    fontSize: 16,
   },
 });
 
