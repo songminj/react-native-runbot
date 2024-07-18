@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TextInput, TouchableOpacity, Text, Alert } from 'react-native';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SignInScreen = () => {
   const [username, setUsername] = useState('');
@@ -10,7 +11,7 @@ const SignInScreen = () => {
 
   const handleSignUp = async () => {
     try {
-      const response = await axios.post('http://your-server-url/signup', {
+      const response = await axios.post('http://3.35.213.242:8080/--회원가입--', {
         username,
         password,
         userId,
@@ -19,8 +20,8 @@ const SignInScreen = () => {
       
       if (response.data.success) {
         Alert.alert('회원가입 성공', '회원가입이 성공적으로 완료되었습니다.');
-        // 추가로, 성공 후 회원가입 상태를 유지할 방법을 구현합니다.
-        // 예: AsyncStorage나 Redux로 토큰 저장
+        await AsyncStorage.setItem('userToken', response.data.token);
+        // 추가로, 성공 후 필요한 네비게이션이나 상태 업데이트 로직 추가
       } else {
         Alert.alert('회원가입 실패', response.data.message);
       }
