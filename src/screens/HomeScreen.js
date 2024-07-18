@@ -65,7 +65,6 @@ const HomeScreen = ({ navigation }) => {
           <TouchableOpacity
             style={styles.buttonStyle}
             onPress={() => {
-              console.log('Button Pressed');
               navigation.navigate('Select');}}
           >
             <Text style={styles.buttonTextStyle}>영상 선택 하러가기</Text>

@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+// import { useNavigation } from '@react-navigation/native';
 
-const LoginScreen = () => {
-  const navigation = useNavigation();
-  const [username, setUsername] = useState('');
+const LoginScreen = ({navigation}) => {
+  // const navigation = useNavigation();
+  const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
     // 여기서는 간단히 아이디와 비밀번호가 일치하는지 확인하여 처리할 수 있습니다.
     // 실제로는 서버와의 통신 등을 통해 로그인 처리를 해야 합니다.
-    if (username === 'user' && password === 'password') {
+    if (userId === 'user' && password === 'password') {
       // 로그인 성공 시 메인 화면으로 이동
       navigation.navigate('Main');
     } else {
@@ -27,8 +27,8 @@ const LoginScreen = () => {
         <TextInput
           style={styles.input}
           placeholder="아이디"
-          value={username}
-          onChangeText={text => setUsername(text)}
+          value={userId}
+          onChangeText={text => setUserId(text)}
         />
       </View>
 
@@ -44,6 +44,13 @@ const LoginScreen = () => {
 
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.loginButtonText}>로그인</Text>
+      </TouchableOpacity>
+      <TouchableOpacity 
+        style={styles.loginButton} 
+        onPress={() => {
+          navigation.navigate('SignIn');}}
+      >
+        <Text style={styles.loginButtonText}>회원가입</Text>
       </TouchableOpacity>
     </View>
   );
