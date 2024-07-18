@@ -22,7 +22,7 @@ const MainTabNavigator = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name="Main"
+        name="Home"
         component={HomeScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -48,7 +48,7 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Main">
         <Stack.Screen 
-          name="Main" 
+          name="MainTabs" 
           component={MainTabNavigator}
           options={{headerShown: false}}
         />
