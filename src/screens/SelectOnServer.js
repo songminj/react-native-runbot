@@ -1,4 +1,5 @@
 import React from "react";
+import axios from 'axios';
 import { 
   View, 
   Text, 
@@ -8,6 +9,28 @@ import {
 } from 'react-native';
 
 const width = Dimensions.get('window').width;
+
+// 선언부 
+const RequestService = () => {
+  requestHttpGet = () => {
+    return axios({
+        method: 'get',
+        url: "http://3.35.213.242:8080/api-join/(pk)",
+    });
+  }
+}
+
+// 호출부 
+const RequestScreen = () => {
+  useEffect(() => {
+    RequestService.requestHttpGet()
+      .then((request) => {
+        console.log("결과값 : ", request)
+      }).catch((error) => {
+        console.log("에러 : ", error)
+      })
+  })
+}
 
 const SelectOnServer = ({ navigation }) => {
   return (

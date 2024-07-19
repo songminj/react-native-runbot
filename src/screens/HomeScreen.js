@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import {
   SafeAreaView,
-  StatusBar,
   StyleSheet,
   Text,
   useColorScheme,
@@ -47,25 +48,67 @@ const HomeScreen = ({ navigation }) => {
     backgroundColor: isDarkMode ? '#1e1e1e' : '#f2f2f2',
     flex: 1,
   };
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    checkLoginStatus();
+  }, []);
+
+  const checkLoginStatus = async () => {
+    try {
+      const token = await AsyncStorage.getItem('userToken');
+      if (token) {
+        setIsLoggedIn(true);
+        console.log('로그인중');
+      } else {
+        setIsLoggedIn(false);
+        console.log('로그인 안되어있음');
+      }
+    } catch (error) {
+      console.error('Error checking login status:', error);
+    }
+  };
+
+  const handleLogin = () => {
+    navigation.navigate('Login');
+  };
+
+  const handleLogout = async () => {
+    try {
+      await AsyncStorage.removeItem('userToken');
+      setIsLoggedIn(false);
+      navigation.navigate('Login');
+      console.log('로그아웃 완료');
+      // async storage remove item
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
+  };
+
   return (
     <SafeAreaView style={backgroundStyle}>
-      {/* <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} /> */}
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        {/* 로그인 상태에 따라 버튼을 다르게 표시 */}
         <TouchableOpacity
-          onPress={()=>{
-            navigation.navigate('Login');}}
+          style={styles.buttonStyle}
+          onPress={isLoggedIn ? handleLogout : handleLogin}
         >
-          <Text>로그인하기</Text>
+          <Text style={styles.buttonTextStyle}>
+            {isLoggedIn ? '로그아웃하기' : '로그인하기'}
+          </Text>
         </TouchableOpacity>
+
         <View>
-          <Icon name="home" size ={24} color ="#000000"/>
+          <Icon name="home" size={24} color="#000000" />
         </View>
         <HiUser />
         <View style={styles.container}>
           <TouchableOpacity
             style={styles.buttonStyle}
             onPress={() => {
-              navigation.navigate('Select');}}
+              navigation.navigate('Select');
+            }}
           >
             <Text style={styles.buttonTextStyle}>영상 선택 하러가기</Text>
           </TouchableOpacity>
@@ -73,17 +116,14 @@ const HomeScreen = ({ navigation }) => {
         <HomeImage />
       </ScrollView>
     </SafeAreaView>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   scrollViewContent: {
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 20,
-  },
-  image: {
-    width: width * 0.9,
   },
   hiUserContainer: {
     marginBottom: 20,
@@ -118,6 +158,6 @@ const styles = StyleSheet.create({
     aspectRatio: 1,  // adjust the aspect ratio as per your requirement
     marginBottom: 10,
   },
-});
+})
 
 export default HomeScreen;
