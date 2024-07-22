@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import {
   SafeAreaView,
   StyleSheet,
@@ -14,12 +13,16 @@ import {
   ScrollView
 } from 'react-native';
 
+import LargeButton from '../components/LargeButton';
+
+
 const width = Dimensions.get('window').width;
 
 const HiUser = () => {
   return (
     <View style={styles.hiUserContainer}>
-      <Text style={styles.hiUserText}>사용자님</Text>
+      <Text style={styles.hiUserText}> USER님</Text>
+      {/* <Text style={styles.hiUserText}>{로그인 되어있으면 ? 'storage 의 userId': 'USER'}</Text> */}
       <Text style={styles.hiUserText}>안녕하세요!</Text>
     </View>
   );
@@ -90,6 +93,8 @@ const HomeScreen = ({ navigation }) => {
     <SafeAreaView style={backgroundStyle}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         {/* 로그인 상태에 따라 버튼을 다르게 표시 */}
+
+        
         <TouchableOpacity
           style={styles.buttonStyle}
           onPress={isLoggedIn ? handleLogout : handleLogin}
@@ -104,14 +109,11 @@ const HomeScreen = ({ navigation }) => {
         </View>
         <HiUser />
         <View style={styles.container}>
-          <TouchableOpacity
-            style={styles.buttonStyle}
-            onPress={() => {
-              navigation.navigate('Select');
-            }}
-          >
-            <Text style={styles.buttonTextStyle}>영상 선택 하러가기</Text>
-          </TouchableOpacity>
+          <LargeButton
+            title='test'
+            toward='Select'
+            navigation = {navigation}
+          />
         </View>
         <HomeImage />
       </ScrollView>
