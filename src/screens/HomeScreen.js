@@ -110,7 +110,7 @@ const HomeScreen = ({ navigation }) => {
         <HiUser />
         <View style={styles.container}>
           <LargeButton
-            title='test'
+            title='영상 분석하기'
             toward='Select'
             navigation = {navigation}
           />

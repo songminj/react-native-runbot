@@ -3,11 +3,9 @@ import {
   View, 
   Text, 
   StyleSheet, 
-  TouchableOpacity,
-  Dimensions,
 } from 'react-native';
+import LargeButton from "../components/LargeButton";
 
-const width = Dimensions.get('window').width;
 
 const SelectScreen = ({ navigation }) => {
   return (
@@ -21,20 +19,16 @@ const SelectScreen = ({ navigation }) => {
         </Text>
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={styles.buttonStyle}
-          onPress={() => {
-            navigation.navigate('Device');}}
-        >
-          <Text style={styles.buttonTextStyle}>갤러리에서 영상 가져오기</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.buttonStyle}
-          onPress={() => {
-            navigation.navigate('Server');}}
-        >
-          <Text style={styles.buttonTextStyle}>로봇카로 촬영한 영상 찾아보기</Text>
-        </TouchableOpacity>
+        <LargeButton
+          title='갤러리에서 영상 가져오기'
+          toward='Device'
+          navigation={navigation}
+        />
+        <LargeButton
+          title='로봇카로 촬영한 영상 찾아보기'
+          toward='Server'
+          navigation={navigation}
+        />
       </View>
     </View>
   );
@@ -61,21 +55,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     margin: 20,
     justifyContent: 'center',
-    alignItems: 'center', // Center align buttons horizontally
-  },
-  buttonStyle: {
-    backgroundColor: '#000000',
-    width: width * 0.9,
-    padding: 10,
-    borderRadius: 5,
-    marginBottom: 10,
-    alignItems: 'center', // Center align text horizontally
-  },
-  buttonTextStyle: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
-    textAlign: 'center', // Center align text horizontally
+    alignItems: 'center', 
   },
 });
 

@@ -1,15 +1,16 @@
 import React from 'react';
 import { 
-  TouchableOpacity, 
+  Pressable, 
   Dimensions,
-  Text 
+  Text
 } from 'react-native';
 
 
 const width = Dimensions.get('window').width;
 const LargeButton = (props) => {
   return (
-    <TouchableOpacity
+    // 0.63버전 부터는 TouchableOpacity > Pressable로 권장
+    <Pressable
       style={styles.buttonStyle}
       onPress={() => {
         props.navigation.navigate(props.toward);
@@ -18,7 +19,7 @@ const LargeButton = (props) => {
       <Text style={styles.buttonTextStyle}>
         {props.title}
       </Text>
-    </TouchableOpacity>
+    </Pressable>
   )
 }
 
@@ -26,6 +27,7 @@ const styles = {
   buttonStyle: {
     backgroundColor: '#000000',
     width: width * 0.9,
+    innerHeight: 24,
     padding: 10,
     borderRadius: 5,
     marginBottom: 10,
