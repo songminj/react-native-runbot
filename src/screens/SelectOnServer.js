@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from 'axios';
 import { 
   View, 
@@ -11,29 +11,20 @@ import LargeButton from '../components/LargeButton';
 
 const width = Dimensions.get('window').width;
 
-// 선언부 
-const RequestService = () => {
-  requestHttpGet = () => {
-    return axios({
-        method: 'get',
-        url: "http://3.35.213.242:8080/api-join/(pk)",
-    });
-  }
-}
-
-// 호출부 
-const RequestScreen = () => {
-  useEffect(() => {
-    RequestService.requestHttpGet()
-      .then((request) => {
-        console.log("결과값 : ", request)
-      }).catch((error) => {
-        console.log("에러 : ", error)
-      })
-  })
-}
-
 const SelectOnServer = ({ navigation }) => {
+  const requestGet = async () => {
+    try {
+      const response = await axios.get('http://3.35.213.242:8080/api-video');
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    requestGet();
+  }, []);
+
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>로봇카로 촬영한 영상 찾아보기</Text>

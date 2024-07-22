@@ -15,7 +15,10 @@ const SelectScreen = ({ navigation }) => {
       </View>
       <View style={styles.container}>
         <Text style={styles.description}>
-          여러분의 달리기 자세를 분석하여 자세교정이 필요한 부분을 알려드립니다.
+          여러분의 달리기 자세를 분석하여 
+        </Text>
+        <Text style={styles.description}>
+          자세교정이 필요한 부분을 알려드립니다.
         </Text>
       </View>
       <View style={styles.buttonContainer}>
