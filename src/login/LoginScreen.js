@@ -1,54 +1,63 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
-// import { useNavigation } from '@react-navigation/native';
+import { 
+  StyleSheet, 
+  View, 
+  Text, 
+  TouchableOpacity,
+  Image
+} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import Input from '../components/Input';
 
-const LoginScreen = ({navigation}) => {
-  // const navigation = useNavigation();
+const LoginScreen = ({ navigation }) => {
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    // 여기서는 간단히 아이디와 비밀번호가 일치하는지 확인하여 처리할 수 있습니다.
-    // 실제로는 서버와의 통신 등을 통해 로그인 처리를 해야 합니다.
-    if (userId === 'user' && password === 'password') {
-      // 로그인 성공 시 메인 화면으로 이동
-      navigation.navigate('Main');
-    } else {
-      // 로그인 실패 시 예를 들어 경고 메시지 등을 표시할 수 있습니다.
-      alert('아이디 또는 비밀번호가 올바르지 않습니다.');
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post('https://example.com/api/login', {
+        userId,
+        password
+      });
+
+      if (response.status === 200) {
+        const { token } = response.data;
+        await AsyncStorage.setItem('userToken', token);
+        navigation.navigate('Main');
+      } else {
+        alert('아이디 또는 비밀번호가 올바르지 않습니다.');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      alert('로그인 중 오류가 발생했습니다.');
     }
   };
 
   return (
     <View style={styles.container}>
+      <Image
+        source={require('../../assets/logo.png')}
+        style={styles.image}
+      />
       <Text style={styles.title}>로그인</Text>
-
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="아이디"
-          value={userId}
-          onChangeText={text => setUserId(text)}
-        />
-      </View>
-
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="비밀번호"
-          secureTextEntry={true}
-          value={password}
-          onChangeText={text => setPassword(text)}
-        />
-      </View>
-
+      <Input 
+        placeholder='아이디를 입력하세요'
+        onChangeText={text => setUserId(text)}
+        value={userId}
+      />
+      <Input 
+        placeholder='비밀번호를 입력하세요'
+        secureTextEntry={true}
+        onChangeText={text => setPassword(text)}
+        value={password}
+      />
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.loginButtonText}>로그인</Text>
       </TouchableOpacity>
       <TouchableOpacity 
         style={styles.loginButton} 
-        onPress={() => {
-          navigation.navigate('SignIn');}}
+        onPress={() => navigation.navigate('SignIn')}
       >
         <Text style={styles.loginButtonText}>회원가입</Text>
       </TouchableOpacity>
@@ -63,23 +72,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#ffffff',
   },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
-    borderWidth: 1,
-    borderColor: '#cccccc',
-    borderRadius: 5,
-    paddingHorizontal: 10,
-  },
-  input: {
-    flex: 1,
-    paddingVertical: 10,
-  },
   loginButton: {
     marginTop: 20,
     backgroundColor: '#007bff',
@@ -91,6 +83,15 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 16,
   },
+  image: {
+    width: 100,
+    height: 100,
+    marginBottom: 40,
+  },
+  title: {
+    fontSize: 24,
+    marginBottom: 20,
+  }
 });
 
 export default LoginScreen;
