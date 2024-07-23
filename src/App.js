@@ -26,7 +26,11 @@ const MainTabNavigator = () => {
         component={HomeScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Icon name="home" color={color} size={size} />
+            <Icon 
+              name="home" 
+              color={color} 
+              size={size} 
+            />
           ),
         }}
       />
@@ -35,7 +39,11 @@ const MainTabNavigator = () => {
         component={LoginScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Icon name="sign-in" color={color} size={size} />
+            <Icon 
+              name="sign-in" 
+              color={color} 
+              size={size} 
+            />
           ),
         }}
       />

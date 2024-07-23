@@ -16,18 +16,18 @@ import LargeButton from '../components/LargeButton';
 
 const width = Dimensions.get('window').width;
 
-const HiUser = ({ navigation, userId }) => {
+const HiUser = ({ navigation, userId, isLoggedIn }) => {
   return (
     <Pressable 
       style={styles.hiUserContainer}
-      onPress={() => navigation.navigate('Profile')} // Correct function call
+      onPress={() => navigation.navigate(isLoggedIn ? 'Profile' : 'Login')}
     >
       <Icon 
         name="user" 
         size={20}
         style={styles.hiUserIcon}
       />
-      <Text style={styles.hiUserText}>{userId ? `${userId}님` : 'USER님'}</Text>
+      <Text style={styles.hiUserText}>{isLoggedIn ? `${userId}님` : 'USER님'}</Text>
     </Pressable>
   );
 };
