@@ -1,33 +1,42 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, TextInput, TouchableOpacity, Text, Alert } from 'react-native';
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import React, { useState } from 'react'
+import { 
+  StyleSheet, 
+  View, 
+  TextInput, 
+  TouchableOpacity, 
+  Text 
+} from 'react-native'
+import axios from 'axios'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const SignInScreen = ({ navigation }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [userId, setUserId] = useState('');
-  const [phone, setPhone] = useState('');
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [userId, setUserId] = useState('')
+  const [phone, setPhone] = useState('')
 
   const requestPost = async () => {
     const data = {
-        username: username,
-        password: password,
-        userId: userId,
-        phone: phone,
-    };
+      username: username,
+      password: password,
+      userId: userId,
+      phone: phone,
+    }
 
     try {
-        const response = await axios.post('http://3.35.213.242:8080/api-member/join', data);
-        console.log(response.data)
-        await AsyncStorage.setItem('userToken', response.data.token);
+      const response = await axios.post('http://3.35.213.242:8080/api-member/join', data)
+      console.log(response.data)
+
+      if (response.data.token) {
+        await AsyncStorage.setItem('userData', response.data.token)
         navigation.navigate('Home')
+      } else {
+        console.error('Token is missing in the response')
+      }
     } catch (error) {
-        console.error(error);
+      console.error(error)
     }
   }
-
 
   return (
     <View style={styles.container}>
@@ -71,8 +80,8 @@ const SignInScreen = ({ navigation }) => {
         <Text style={styles.signUpButtonText}>회원가입</Text>
       </TouchableOpacity>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -107,6 +116,6 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 16,
   },
-});
+})
 
-export default SignInScreen;
+export default SignInScreen

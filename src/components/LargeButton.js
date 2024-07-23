@@ -8,13 +8,19 @@ import {
 
 const width = Dimensions.get('window').width;
 const LargeButton = (props) => {
+
+  const handlePress = () => {
+    if (typeof props.toward === 'function') {
+      props.toward()
+    } else {
+      props.navigation.navigate(props.toward);
+    }
+  };
   return (
     // 0.63버전 부터는 TouchableOpacity > Pressable로 권장
     <Pressable
       style={styles.buttonStyle}
-      onPress={() => {
-        props.navigation.navigate(props.toward);
-      }}
+      onPress={handlePress}
     >
       <Text style={styles.buttonTextStyle}>
         {props.title}

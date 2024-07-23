@@ -5,26 +5,30 @@ import {
   SafeAreaView,
   StyleSheet,
   Text,
-  useColorScheme,
   View,
   Image,
-  TouchableOpacity,
   Dimensions,
-  ScrollView
+  ScrollView,
+  Pressable
 } from 'react-native';
 
 import LargeButton from '../components/LargeButton';
 
-
 const width = Dimensions.get('window').width;
 
-const HiUser = () => {
+const HiUser = ({ navigation, userId }) => {
   return (
-    <View style={styles.hiUserContainer}>
-      <Text style={styles.hiUserText}> USER님</Text>
-      {/* <Text style={styles.hiUserText}>{로그인 되어있으면 ? 'storage 의 userId': 'USER'}</Text> */}
-      <Text style={styles.hiUserText}>안녕하세요!</Text>
-    </View>
+    <Pressable 
+      style={styles.hiUserContainer}
+      onPress={() => navigation.navigate('Profile')} // Correct function call
+    >
+      <Icon 
+        name="user" 
+        size={20}
+        style={styles.hiUserIcon}
+      />
+      <Text style={styles.hiUserText}>{userId ? `${userId}님` : 'USER님'}</Text>
+    </Pressable>
   );
 };
 
@@ -36,23 +40,14 @@ const HomeImage = () => {
         source={require('../../assets/run1.jpg')}
         resizeMode="contain"
       />
-      <Image
-        style={styles.tiny}
-        source={require('../../assets/run2.jpg')}
-        resizeMode="contain"
-      />
     </View>
   );
 };
 
 const HomeScreen = ({ navigation }) => {
-  const isDarkMode = useColorScheme() === 'dark';
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? '#1e1e1e' : '#f2f2f2',
-    flex: 1,
-  };
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userId, setUserId] = useState('');
 
   useEffect(() => {
     checkLoginStatus();
@@ -61,8 +56,11 @@ const HomeScreen = ({ navigation }) => {
   const checkLoginStatus = async () => {
     try {
       const token = await AsyncStorage.getItem('userToken');
+      const id = await AsyncStorage.getItem('userId');
       if (token) {
         setIsLoggedIn(true);
+        setUserId(id);
+        console.log(token);
         console.log('로그인중');
       } else {
         setIsLoggedIn(false);
@@ -80,75 +78,69 @@ const HomeScreen = ({ navigation }) => {
   const handleLogout = async () => {
     try {
       await AsyncStorage.removeItem('userToken');
+      await AsyncStorage.removeItem('userId');
       setIsLoggedIn(false);
+      setUserId('');
       navigation.navigate('Login');
       console.log('로그아웃 완료');
-      // async storage remove item
     } catch (error) {
       console.error('Error logging out:', error);
     }
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
+    <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        {/* 로그인 상태에 따라 버튼을 다르게 표시 */}
-
-        
-        <TouchableOpacity
-          style={styles.buttonStyle}
-          onPress={isLoggedIn ? handleLogout : handleLogin}
-        >
-          <Text style={styles.buttonTextStyle}>
-            {isLoggedIn ? '로그아웃하기' : '로그인하기'}
-          </Text>
-        </TouchableOpacity>
-
-        <View>
-          <Icon name="home" size={24} color="#000000" />
+        <View style={styles.headContainer}>
+          <HiUser 
+            userId={userId}
+            navigation={navigation} // Pass navigation prop
+          />
         </View>
-        <HiUser />
         <View style={styles.container}>
+          <LargeButton
+            title={isLoggedIn ? '로그아웃하기' : '로그인하기'}
+            toward={isLoggedIn ? handleLogout : handleLogin}
+          />
+          <HomeImage />
           <LargeButton
             title='영상 분석하기'
             toward='Select'
-            navigation = {navigation}
+            navigation={navigation}
           />
         </View>
-        <HomeImage />
       </ScrollView>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
+  headContainer: {
+    padding: 10,
+    alignItems: 'flex-start',
+    width: width * 0.9, // Ensure it aligns correctly within the container width
+  },
+  safeArea: {
+    flex: 1,
+  },
   scrollViewContent: {
-    justifyContent: 'center',
-    alignItems: 'center',
     paddingVertical: 20,
+    alignItems: 'center', 
   },
   hiUserContainer: {
     marginBottom: 20,
-    padding: 10,
+    // padding: 10,
     borderRadius: 5,
-    alignItems: 'center',
+    flexDirection: 'row'
   },
   hiUserText: {
     fontSize: 18,
     color: 'black',
+    textAlign: 'left', 
+    width: '100%', 
   },
-  buttonStyle: {
-    backgroundColor: '#000000',
-    width: width * 0.9,
-    padding: 10,
-    borderRadius: 5,
-    marginBottom: 10,
-    alignItems: 'center', // Center align the text inside the button
-  },
-  buttonTextStyle: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
+  hiUserIcon: {
+    marginRight:8,
   },
   container: {
     justifyContent: 'center',
@@ -157,7 +149,7 @@ const styles = StyleSheet.create({
   tiny: {
     width: width * 0.9,
     height: undefined,
-    aspectRatio: 1,  // adjust the aspect ratio as per your requirement
+    aspectRatio: 1,
     marginBottom: 10,
   },
 })

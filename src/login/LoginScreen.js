@@ -15,23 +15,23 @@ const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
-    try {
-      const response = await axios.post('https://example.com/api/login', {
-        userId,
-        password
-      });
+  //   try {
+  //     const response = await axios.get('http://3.35.213.242:8080/api-member/', {
+  //       userId,
+  //       password
+  //     });
 
-      if (response.status === 200) {
-        const { token } = response.data;
-        await AsyncStorage.setItem('userToken', token);
-        navigation.navigate('Main');
-      } else {
-        alert('아이디 또는 비밀번호가 올바르지 않습니다.');
-      }
-    } catch (error) {
-      console.error('Error during login:', error);
-      alert('로그인 중 오류가 발생했습니다.');
-    }
+  //     if (response.status === 200) {
+  //       const { token } = response.data;
+  //       await AsyncStorage.setItem('userData', token);
+  //       navigation.navigate('Main');
+  //     } else {
+  //       alert('아이디 또는 비밀번호가 올바르지 않습니다.');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error during login:', error);
+  //     alert('로그인 중 오류가 발생했습니다.');
+  //   }
   };
 
   return (
