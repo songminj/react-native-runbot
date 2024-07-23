@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import { 
   StyleSheet, 
   View, 
-  TextInput, 
   TouchableOpacity, 
   Text 
 } from 'react-native'
 import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import Input from '../components/Input'
 
 const SignInScreen = ({ navigation }) => {
   const [username, setUsername] = useState('')
@@ -40,39 +40,27 @@ const SignInScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="이름"
-          value={username}
-          onChangeText={text => setUsername(text)}
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="전화번호"
-          value={phone}
-          onChangeText={text => setPhone(text)}
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="아이디"
-          value={userId}
-          onChangeText={text => setUserId(text)}
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="비밀번호"
-          secureTextEntry={true}
-          value={password}
-          onChangeText={text => setPassword(text)}
-        />
-      </View>
+      <Input
+        placeholder="이름"
+        value={username}
+        onChangeText={text => setUsername(text)}
+      />
+      <Input
+        placeholder="전화번호"
+        value={phone}
+        onChangeText={text => setPhone(text)}
+      />
+      <Input
+        placeholder="아이디"
+        value={userId}
+        onChangeText={text => setUserId(text)}
+      />
+      <Input
+        placeholder="비밀번호"
+        secureTextEntry={true}
+        value={password}
+        onChangeText={text => setPassword(text)}
+      />
       <TouchableOpacity 
         style={styles.signUpButton} 
         onPress={requestPost}
@@ -90,20 +78,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#ffffff',
     padding: 20,
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
-    borderWidth: 1,
-    borderColor: '#cccccc',
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    width: '100%',
-  },
-  input: {
-    flex: 1,
-    paddingVertical: 10,
   },
   signUpButton: {
     marginTop: 20,

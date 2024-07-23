@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 
 
+
 const width = Dimensions.get('window').width;
 const LargeButton = (props) => {
 
@@ -27,6 +28,10 @@ const LargeButton = (props) => {
       </Text>
     </Pressable>
   )
+}
+
+LargeButton.defaultProps = {
+  title: '', 
 }
 
 const styles = {

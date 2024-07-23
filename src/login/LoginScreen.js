@@ -1,38 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import { 
   StyleSheet, 
   View, 
   Text, 
   TouchableOpacity,
   Image
-} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-import Input from '../components/Input';
+} from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import axios from 'axios'
+import Input from '../components/Input'
 
 const LoginScreen = ({ navigation }) => {
-  const [userId, setUserId] = useState('');
-  const [password, setPassword] = useState('');
+  const [userId, setUserId] = useState('')
+  const [password, setPassword] = useState('')
 
   const handleLogin = async () => {
-  //   try {
-  //     const response = await axios.get('http://3.35.213.242:8080/api-member/', {
-  //       userId,
-  //       password
-  //     });
+    try {
+      const response = await axios.get('http://3.35.213.242:8080/api-member/', {
+        userId,
+        password
+      })
 
-  //     if (response.status === 200) {
-  //       const { token } = response.data;
-  //       await AsyncStorage.setItem('userData', token);
-  //       navigation.navigate('Main');
-  //     } else {
-  //       alert('아이디 또는 비밀번호가 올바르지 않습니다.');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error during login:', error);
-  //     alert('로그인 중 오류가 발생했습니다.');
-  //   }
-  };
+      if (response.status === 200) {
+        const { token } = response.data
+        await AsyncStorage.setItem('userData', token)
+        navigation.navigate('Main')
+      } else {
+        alert('아이디 또는 비밀번호가 올바르지 않습니다.')
+      }
+    } catch (error) {
+      console.error('Error during login:', error)
+      alert('로그인 중 오류가 발생했습니다.')
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -62,8 +62,8 @@ const LoginScreen = ({ navigation }) => {
         <Text style={styles.loginButtonText}>회원가입</Text>
       </TouchableOpacity>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#ffffff',
+    padding: 24
   },
   loginButton: {
     marginTop: 20,
@@ -92,6 +93,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginBottom: 20,
   }
-});
+})
 
-export default LoginScreen;
+export default LoginScreen
