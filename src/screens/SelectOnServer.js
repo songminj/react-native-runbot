@@ -30,7 +30,7 @@ const SelectOnServer = ({ navigation }) => {
       <Text style={styles.headerText}>로봇카로 촬영한 영상 찾아보기</Text>
       <LargeButton
         title='분석하러 가기'
-        toward='Loading'
+        toward='Slicing'
         navigation={navigation}
       />
     </View>
