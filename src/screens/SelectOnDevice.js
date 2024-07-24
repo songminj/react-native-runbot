@@ -5,13 +5,13 @@ import {
   Text, 
   StyleSheet, 
   Modal, 
-  Pressable, 
   Alert 
 } from 'react-native'
 import axios from 'axios'
 import LargeButton from '../components/LargeButton'
 
-const SelectOnDevice = () => {
+const SelectOnDevice = ({navigation}) => {
+  const [afterSelect, setAfterSelect] = useState(false)
   const [modalVisible, setModalVisible] = useState(false)
   const [selectedVideo, setSelectedVideo] = useState(null)
 
@@ -28,6 +28,7 @@ const SelectOnDevice = () => {
 
   const sendVideoToServer = async () => {
     if (selectedVideo) {
+      setAfterSelect(true)
       const formData = new FormData()
       formData.append('video', {
         uri: selectedVideo.path,
@@ -43,6 +44,7 @@ const SelectOnDevice = () => {
         })
         console.log('Video uploaded successfully:', response.data)
         Alert.alert("Success", "Video uploaded successfully.")
+        
       } catch (error) {
         console.error('Error uploading video:', error)
         Alert.alert("Error", "Error uploading video.")
@@ -53,11 +55,26 @@ const SelectOnDevice = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>갤러리에서 영상 가져오기</Text>
-      <LargeButton
-        title='비디오 선택하기'
-        toward={pickVideo}
-      />
+      {!afterSelect? (
+        <>
+          <Text style={styles.title}>갤러리에서 영상 가져오기</Text>
+          <LargeButton
+            title='비디오 선택하기'
+            toward={pickVideo}
+          />
+        </>
+      ) : (
+        <>
+        <Text style={styles.title}>이 비디오로 분석을 시작하겠습니다</Text>
+          <LargeButton
+            title='분석하러 가기'
+            toward='Slicing'
+            navigation={navigation}
+          />
+        </>
+      )}
+
+
       <Modal
         animationType="slide"
         transparent={true}
