@@ -7,13 +7,27 @@ import {
   Alert 
 } from 'react-native'
 import axios from 'axios'
+import LargeButton from '../components/LargeButton'
 
-const SlicingScreen = () => {
+const SlicingScreen = ({navigation}) => {
   return (
-    <View>
-      <Text>TEST</Text>
+    <View style={styles.container}>
+      <LargeButton
+        title='결과확인하러 가기'
+        toward='Loading'
+        navigation={navigation}
+      />
     </View>
   )
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f2f2f2',
+  },
+
+})
 export default SlicingScreen

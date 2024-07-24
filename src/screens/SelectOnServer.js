@@ -1,29 +1,29 @@
-import React, { useEffect } from "react";
-import axios from 'axios';
+import React, { useEffect } from "react"
+import axios from 'axios'
 import { 
   View, 
   Text, 
   StyleSheet,
   Dimensions
-} from 'react-native';
+} from 'react-native'
 
-import LargeButton from '../components/LargeButton';
+import LargeButton from '../components/LargeButton'
 
-const width = Dimensions.get('window').width;
+const width = Dimensions.get('window').width
 
 const SelectOnServer = ({ navigation }) => {
   const requestGet = async () => {
     try {
-      const response = await axios.get('http://3.35.213.242:8080/api-video');
-      console.log(response.data);
+      const response = await axios.get('http://3.35.213.242:8080/api-video')
+      console.log(response.data)
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   useEffect(() => {
-    requestGet();
-  }, []);
+    requestGet()
+  }, [])
 
   return (
     <View style={styles.container}>
@@ -34,8 +34,8 @@ const SelectOnServer = ({ navigation }) => {
         navigation={navigation}
       />
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -49,6 +49,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: 'center',
   },
-});
+})
 
-export default SelectOnServer;
+export default SelectOnServer
